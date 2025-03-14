@@ -190,10 +190,16 @@ def create_app(config=None):
         """Handle client rejoining a job."""
         job_id = data.get('job_id')
         app.logger.info(f"Client {request.sid} rejoined job {job_id}")
-        emit('rejoin_response', {'status': 'rejoined', 'job_id': job_id})
         
         # Check job status using your existing function
         job_status = get_job_status(job_id)
+        
+        # Always send a rejoin_response first to acknowledge
+        emit('rejoin_response', {
+            'status': 'rejoined', 
+            'job_id': job_id,
+            'status': job_status.get('status', 'unknown')
+        })
         
         # If job is completed, resend the results with all required fields
         if job_status.get('status') == 'completed' and 'minutes' in job_status:
@@ -201,11 +207,22 @@ def create_app(config=None):
             # Ensure we have all fields
             complete_minutes = ensure_complete_minutes(minutes)
             
+            # Send processing_complete event for completed jobs
             emit('processing_complete', {
                 'job_id': job_id,
                 'status': 'completed',
                 'minutes': complete_minutes,
                 'pdf_path': job_status.get('pdf_path', ''),
+                'timestamp': job_status.get('timestamp', ''),
+                'eventType': 'processing_complete'
+            })
+            
+            app.logger.info(f"Re-sent processing_complete event for job {job_id}")
+        elif job_status.get('status') == 'error':
+            # Send error event
+            emit('processing_error', {
+                'job_id': job_id,
+                'error': job_status.get('error', 'Unknown error'),
                 'timestamp': job_status.get('timestamp', '')
             })
     
@@ -730,8 +747,15 @@ def process_file_background(app, file_extension, filepath, job_id, original_file
                     "timestamp": datetime.now().isoformat(),
                     "eventType": "processing_complete"
                 })
+                # Also broadcast to all clients - this helps with reliability
+                app.socketio.emit("job_completed", {
+                    "job_id": job_id,
+                    "status": "completed",
+                    "timestamp": datetime.now().isoformat()
+                }, broadcast=True)
             except Exception as e:
                 app.logger.warning(f"SocketIO emit failed (processing_complete): {e}")
+            
             app.logger.info(f"Completed processing for job: {job_id}")
         except Exception as e:
             app.logger.error(f"Error in background processing: {str(e)}", exc_info=True)

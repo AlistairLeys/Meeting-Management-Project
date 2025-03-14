@@ -120,49 +120,100 @@ export function joinJobRoom(jobId: string, onUpdate?: (data: any) => void, onCom
   const s = getSocket();
   if (!s) {
     console.error("Cannot join job room: Socket connection not established");
+    // Try to get status via REST API instead
+    if (onComplete) {
+      getJobStatus(jobId).then(data => {
+        if (data.status === 'completed' && data.minutes) {
+          console.log(`[apiService] Got completed job data via REST API: ${jobId}`);
+          onComplete(data);
+        } else if (data.status === 'error' && onError) {
+          onError(data.error || 'Unknown error');
+        }
+      }).catch(err => {
+        console.error("Failed to get job status via REST:", err);
+        if (onError) onError("Failed to connect to server");
+      });
+    }
     return () => {};
   }
+  
+  console.log(`[apiService] Joining job room: ${jobId}`);
   
   // Clean up any existing listeners to prevent duplicates
   s.off('processing_update');
   s.off('processing_complete');
   s.off('processing_error');
+  s.off('rejoin_response');
   
   // Set up new listeners
   if (onUpdate) {
     s.on('processing_update', (data: any) => { 
+      console.log(`[apiService] Received processing_update for job: ${jobId}`, data);
       if (data && data.job_id === jobId) onUpdate(data); 
     });
   }
   
   if (onComplete) {
     s.on('processing_complete', (data: any) => { 
+      console.log(`[apiService] Received processing_complete for job: ${jobId}`, data);
       if (data && data.job_id === jobId) {
-        console.log('Received processing_complete for job:', jobId, data);
+        console.log(`[apiService] Processing complete for job: ${jobId}`, data);
+        
+        // Store in localStorage for better recovery
+        try {
+          localStorage.setItem('lastJobId', jobId);
+          localStorage.setItem('lastJobData', JSON.stringify(data));
+        } catch (e) {
+          console.error('Error storing job data in localStorage:', e);
+        }
+        
         onComplete(data); 
+      }
+    });
+    
+    // Also handle rejoin_response which might contain completed job data
+    s.on('rejoin_response', (data: any) => {
+      console.log(`[apiService] Received rejoin_response for job: ${jobId}`, data);
+      if (data && data.job_id === jobId && data.status === 'completed') {
+        onComplete(data);
       }
     });
   }
   
   if (onError) {
     s.on('processing_error', (data: any) => {
+      console.error(`[apiService] Received processing_error for job: ${jobId}`, data);
       if (data && data.job_id === jobId) onError(data.error || 'Unknown error');
     });
   }
   
   // Join the room
-  console.log('Joining job room:', jobId);
+  console.log(`[apiService] Emitting rejoin_job for: ${jobId}`);
   s.emit('rejoin_job', { job_id: jobId });
+  
+  // Also get job status via REST as a fallback
+  getJobStatus(jobId).then(data => {
+    console.log(`[apiService] REST API job status for ${jobId}:`, data);
+    if (data.status === 'completed' && data.minutes && onComplete) {
+      console.log(`[apiService] Job is already completed according to REST API: ${jobId}`);
+      onComplete(data);
+    } else if (data.status === 'error' && onError) {
+      onError(data.error || 'Unknown error');
+    }
+  }).catch(err => {
+    console.error("Failed to get job status via REST:", err);
+  });
   
   // Return cleanup function
   return () => {
     // Get fresh socket reference in case it was reconnected
     const currentSocket = getSocket();
     if (currentSocket) {
-      console.log('Leaving job room:', jobId);
+      console.log(`[apiService] Leaving job room: ${jobId}`);
       currentSocket.off('processing_update');
       currentSocket.off('processing_complete');
       currentSocket.off('processing_error');
+      currentSocket.off('rejoin_response');
     }
   };
 }

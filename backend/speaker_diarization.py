@@ -45,20 +45,17 @@ logger = logging.getLogger(__name__)
 def load_models():
     global whisper_model, diarization_pipeline
     if not whisper_model:
-        whisper_model = WhisperModel(
-            "whisper-large-v2",  
-            device="cuda",
-            compute_type="float32",
-        )
-    try:
-        # CPU fallback
-        print("Loading model with CPU int8...")
-        whisper_model = WhisperModel("medium.en", device="cpu", compute_type="int8")
-        print("Successfully loaded model with CPU int8")
-
-    except Exception as e:
-        print(f"Error loading Whisper model: {e}")
-        raise
+        try:
+            print("Loading Whisper model on CPU...")
+            whisper_model = WhisperModel(
+                "medium.en",  # Use medium.en model which is more efficient
+                device="cpu",
+                compute_type="int8"  # int8 quantization is good for CPU performance
+            )
+            print("Successfully loaded Whisper model on CPU")
+        except Exception as e:
+            print(f"Error loading Whisper model: {e}")
+            raise
 
     diarization_pipeline = Pipeline.from_pretrained(
         "pyannote/speaker-diarization",

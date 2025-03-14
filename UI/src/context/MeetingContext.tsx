@@ -40,6 +40,7 @@ export const MeetingProvider: React.FC<{ children: ReactNode }> = ({ children })
       const storedJobData = localStorage.getItem('lastJobData');
       
       if (storedJobData && storedJobId) {
+        console.log('[MeetingContext] Loading stored job data for job:', storedJobId);
         const parsedData = JSON.parse(storedJobData);
         if (parsedData.minutes) {
           setMeetingData(parsedData.minutes);
@@ -55,9 +56,11 @@ export const MeetingProvider: React.FC<{ children: ReactNode }> = ({ children })
   React.useEffect(() => {
     if (meetingData && activeJobId) {
       try {
+        console.log('[MeetingContext] Saving job data to localStorage for job:', activeJobId);
         localStorage.setItem('lastJobData', JSON.stringify({
           job_id: activeJobId,
-          minutes: meetingData
+          minutes: meetingData,
+          status: "completed"
         }));
         localStorage.setItem('lastJobId', activeJobId);
       } catch (e) {
@@ -73,21 +76,33 @@ export const MeetingProvider: React.FC<{ children: ReactNode }> = ({ children })
       return;
     }
     
+    console.log('[MeetingContext] Setting up socket event handlers');
+    
     // Set up socket event handlers
     s.on('processing_complete', (data) => {
-      if (data && data.minutes) {
+      console.log('[MeetingContext] Received processing_complete event:', data);
+      if (data && data.minutes && data.job_id) {
+        console.log('[MeetingContext] Updating meeting data from socket event');
         setMeetingData(data.minutes);
         setActiveJobId(data.job_id);
+        setLoading(false);
       }
     });
     
+    // If we have an active job ID, join that room
+    if (activeJobId) {
+      console.log('[MeetingContext] Joining job room for active job:', activeJobId);
+      s.emit('rejoin_job', { job_id: activeJobId });
+    }
+    
     return () => {
+      console.log('[MeetingContext] Cleaning up socket event handlers');
       const currentSocket = getSocket();
       if (currentSocket) {
         currentSocket.off('processing_complete');
       }
     };
-  }, [setMeetingData, setActiveJobId]);
+  }, [activeJobId]);
 
   useEffect(() => {
     const cleanup = connectToSocket();

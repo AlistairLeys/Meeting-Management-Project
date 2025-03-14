@@ -95,6 +95,7 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
   const [processingStatus, setProcessingStatus] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<any>(null);
+  const processingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Initialize socket connection
@@ -105,6 +106,12 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
       socketRef.current.on('connect', () => {
         console.log('Socket.IO connected with ID:', socketRef.current?.id);
         setError(null);
+        
+        // Re-join job room if we have an active job
+        if (jobId) {
+          console.log(`Rejoining job room after reconnection: ${jobId}`);
+          socketRef.current.emit('rejoin_job', { job_id: jobId });
+        }
       });
   
       socketRef.current.on('connect_error', (err: any) => {
@@ -112,16 +119,16 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
         setError('Connection error: Unable to reach the server');
       });
       
-      // Set up processing event handlers
+      // Set up processing event handlers with clear logging
       socketRef.current.on('processing_update', (data: any) => {
-        console.log('Processing update:', data);
+        console.log('[ButtonNavBar] Processing update received:', data);
         if (data.job_id === jobId) {
           setProcessingStatus(data.status);
         }
       });
   
       socketRef.current.on('processing_complete', (data: any) => {
-        console.log('Processing complete:', data);
+        console.log('[ButtonNavBar] Processing complete received:', data);
         
         if (!data || typeof data !== 'object') {
           console.error('Invalid data received from server');
@@ -129,11 +136,13 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
         }
         
         if (data.job_id === jobId) {
+          console.log('[ButtonNavBar] Updating UI for completed job:', jobId);
           setProcessingStatus('completed');
           setUploading(false);
           
           // Store job data in localStorage for persistence
           if (data.job_id) {
+            console.log('[ButtonNavBar] Storing job data in localStorage');
             localStorage.setItem('lastJobId', data.job_id);
             try {
               localStorage.setItem('lastJobData', JSON.stringify(data));
@@ -144,11 +153,13 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
           
           // Call onNewJobCreated callback
           if (onNewJobCreated && data.job_id) {
+            console.log('[ButtonNavBar] Calling onNewJobCreated with job data');
             onNewJobCreated(data.job_id, data);
           }
           
           // Validate minutes data before passing to callback
           if (onProcessingComplete && data.minutes) {
+            console.log('[ButtonNavBar] Calling onProcessingComplete with minutes data');
             try {
               const validatedMinutes: MinutesData = {
                 title: data.minutes.title || '',
@@ -172,7 +183,7 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
       });
       
       socketRef.current.on('processing_error', (data: any) => {
-        console.error('Processing error:', data);
+        console.error('[ButtonNavBar] Processing error received:', data);
         if (data.job_id === jobId) {
           const errorMessage = data.error || 'An error occurred during processing';
           setError(errorMessage);
@@ -184,8 +195,20 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
           }
         }
       });
+
+      // Add handler for rejoin_response
+      socketRef.current.on('rejoin_response', (data: any) => {
+        console.log('[ButtonNavBar] Rejoin response received:', data);
+      });
     } else {
       setError('Unable to establish WebSocket connection');
+    }
+    
+    // Set a timeout to check job status via REST API as a fallback
+    if (jobId) {
+      processingTimeoutRef.current = setTimeout(() => {
+        checkJobStatusFallback(jobId);
+      }, 10000); // 10 seconds
     }
     
     // Clean up on unmount
@@ -197,10 +220,57 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
         socketRef.current.off('processing_update');
         socketRef.current.off('processing_complete');
         socketRef.current.off('processing_error');
-        socketRef.current.disconnect();
+        socketRef.current.off('rejoin_response');
+      }
+      
+      if (processingTimeoutRef.current) {
+        clearTimeout(processingTimeoutRef.current);
       }
     };
   }, [jobId, onNewJobCreated, onProcessingComplete, onProcessingError]);
+
+  // Add this new function for fallback job status checking
+  const checkJobStatusFallback = async (currentJobId: string) => {
+    console.log('[ButtonNavBar] Checking job status via REST API as fallback');
+    try {
+      const response = await fetch(`http://localhost:5000/job_status/${currentJobId}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch job status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('[ButtonNavBar] Fallback job status check result:', data);
+      
+      if (data.status === 'completed') {
+        console.log('[ButtonNavBar] Job completed according to REST API');
+        setProcessingStatus('completed');
+        setUploading(false);
+        
+        // Store job data in localStorage
+        localStorage.setItem('lastJobId', currentJobId);
+        localStorage.setItem('lastJobData', JSON.stringify(data));
+        
+        // Trigger callbacks
+        if (onNewJobCreated) {
+          onNewJobCreated(currentJobId, data);
+        }
+        
+        if (onProcessingComplete && data.minutes) {
+          onProcessingComplete(data.minutes);
+        }
+      } else if (data.status === 'error') {
+        setProcessingStatus('error');
+        setUploading(false);
+        setError(data.error || 'Unknown error occurred');
+        
+        if (onProcessingError) {
+          onProcessingError(data.error || 'Unknown error occurred');
+        }
+      }
+    } catch (error) {
+      console.error('[ButtonNavBar] Error in fallback job status check:', error);
+    }
+  };
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -240,16 +310,28 @@ const FilesIcon: React.FC<FilesIconProps> = ({ onFileSelect, onClick, onProcessi
         const data = await response.json();
         
         if (data.job_id) {
+          console.log('[ButtonNavBar] Job created with ID:', data.job_id);
           setJobId(data.job_id);
           setProcessingStatus(data.status || 'processing');
           
           // Store job ID in localStorage
           localStorage.setItem('lastJobId', data.job_id);
           
+          // Join the job room via socket
+          if (socketRef.current) {
+            console.log('[ButtonNavBar] Joining job room:', data.job_id);
+            socketRef.current.emit('rejoin_job', { job_id: data.job_id });
+          }
+          
           // Call onNewJobCreated callback
           if (onNewJobCreated) {
             onNewJobCreated(data.job_id, data);
           }
+          
+          // Set fallback timer to check status via REST
+          processingTimeoutRef.current = setTimeout(() => {
+            checkJobStatusFallback(data.job_id);
+          }, 10000); // 10 seconds
         } else {
           throw new Error('No job ID returned from server');
         }
