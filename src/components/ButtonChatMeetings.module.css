@@ -1,0 +1,82 @@
+<<<<<<< HEAD
+=======
+.title {
+  position: relative;
+  font-size: var(--font-size-9xl);
+  font-weight: 600;
+  font-family: var(--font-montserrat);
+  color: var(--color-whitesmoke-100);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.this4 {
+  cursor: pointer;
+  border: none;
+  padding: var(--padding-3xs);
+  background-color: var(--color-silver);
+  flex: 1;
+  box-shadow: 0px 4px 16.5px rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.thisMeeting {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-4xs) var(--padding-5xs)
+    var(--padding-5xs);
+}
+.title1 {
+  position: relative;
+  font-size: var(--font-size-9xl);
+  font-weight: 600;
+  font-family: var(--font-montserrat);
+  color: var(--color-darkgray);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.all2 {
+  cursor: pointer;
+  border: none;
+  padding: var(--padding-3xs);
+  background-color: var(--color-gainsboro-200);
+  flex: 1;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.allMeetings {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--padding-5xs) var(--padding-5xs) var(--padding-5xs)
+    var(--padding-4xs);
+}
+
+>>>>>>> Incoming
+.buttonChatMeetings {
+<<<<<<< HEAD
+  align-self: stretch;
+=======
+  width: 100%;
+  position: relative;
+
+>>>>>>> Incoming
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}

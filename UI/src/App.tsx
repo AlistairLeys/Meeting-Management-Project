@@ -70,11 +70,14 @@ function App() {
 
   return (
     <div className="scale-container">
-      <Routes>
-        <Route path="/" element={<MinutesFrame />} />
-        <Route path="/action-points" element={<MinutesFrame />} />
-        <Route path="/meetings" element={<MeetingsFrame />} /> {/* Add this line */}
-      </Routes>
+      <MeetingProvider>
+        <Routes>
+          <Route path="/" element={<MinutesFrame />} />
+          <Route path="/meetings" element={<MeetingsFrame />} />
+          <Route path="/upload-test" element={<UploadTest />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </MeetingProvider>
     </div>
   );
 }

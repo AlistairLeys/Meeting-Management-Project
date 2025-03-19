@@ -1,0 +1,21 @@
+.copyIcon {
+  width: 20px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.copydefault {
+  cursor: pointer;
+  border: none;
+  padding: var(--padding-6xs) var(--padding-9xs);
+  background-color: var(--color-gainsboro-100);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--br-mid);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}

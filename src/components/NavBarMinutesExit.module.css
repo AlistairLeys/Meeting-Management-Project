@@ -1,0 +1,42 @@
+.navbarBlueButtonBackground {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+}
+.navbarBlueButtonBackground1 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  height: 58px;
+  width: 58px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+.backdefaultIcon {
+  height: 33px;
+  width: 20px;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.navbarMinutesExit {
+  height: 58px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-xs) var(--padding-mid);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+}

@@ -1,0 +1,26 @@
+.title {
+  align-self: stretch;
+  width: 185px;
+  position: relative;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.this4 {
+  flex: 1;
+  box-shadow: 0px 4px 16.5px rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-silver);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  text-align: left;
+  font-size: var(--font-size-9xl);
+  color: var(--color-whitesmoke-100);
+  font-family: var(--font-montserrat);
+}

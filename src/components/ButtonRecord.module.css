@@ -1,0 +1,27 @@
+.navbarBlueButtonBackground {
+  height: 58px;
+  width: 58px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+.recorddefaultIcon {
+  height: 38px;
+  width: 36px;
+  position: relative;
+  z-index: 1;
+}
+.buttonRecord {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-5xs) var(--padding-3xs);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-3xs);
+}

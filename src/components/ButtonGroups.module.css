@@ -1,0 +1,27 @@
+.navbarBlueButtonBackground {
+  height: 58px;
+  width: 58px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+.groupsdefaultIcon {
+  height: 40px;
+  width: 40px;
+  position: relative;
+  z-index: 1;
+}
+.buttonGroups {
+  height: 58px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-5xs) var(--padding-7xs);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+}

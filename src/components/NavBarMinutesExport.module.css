@@ -1,0 +1,29 @@
+.navbarBlueButtonBackground {
+  height: 58px;
+  width: 58px;
+  position: absolute;
+  margin: 0 !important;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+.exportdefaultIcon {
+  width: 40px;
+  position: relative;
+  max-height: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.navbarMinutesExport {
+  height: 58px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-xs) var(--padding-mid);
+  box-sizing: border-box;
+  gap: var(--gap-3xs);
+}

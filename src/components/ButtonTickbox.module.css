@@ -1,0 +1,15 @@
+.tickboxdefault {
+  margin: 0;
+  height: 26px;
+  width: 26px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.buttonTickbox {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-9xs) 0px 0px;
+}

@@ -1,0 +1,168 @@
+.bigArrowRight {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+}
+.bigArrowRight1 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  height: 59px;
+  width: 58px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chatTitle {
+  margin: 0;
+  align-self: stretch;
+  width: 109px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 500;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+.chatTitle1 {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+.header {
+  width: 652px;
+  height: 59px;
+  border-radius: var(--br-2xs) var(--br-2xs) 0px 0px;
+  background: linear-gradient(180deg, #a2a2a2, var(--color-silver) 65%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-3xs) var(--padding-lg) var(--padding-3xs) 0px;
+  box-sizing: border-box;
+  gap: var(--gap-0);
+}
+.chatResponse {
+  border: none;
+  background-color: transparent;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-9xl);
+  outline: none;
+  width: 596px;
+  flex: 1;
+  position: relative;
+  color: var(--color-darkslategray-100);
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
+}
+.chatResponseBox {
+  align-self: stretch;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.replyBox {
+  align-self: stretch;
+  flex: 1;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-whitesmoke-100);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs);
+  gap: var(--gap-3xs);
+}
+.typeHere {
+  border: none;
+  outline: none;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-9xl);
+  background-color: transparent;
+  flex: 1;
+  position: relative;
+  color: var(--color-darkslategray-200);
+  text-align: left;
+  display: inline-block;
+  max-height: 272px;
+}
+.questionText {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 0;
+}
+.greyArrowIcon {
+  width: 33px;
+  position: absolute;
+  margin: 0 !important;
+  top: calc(50% - 17px);
+  right: 38px;
+  height: 34px;
+  display: none;
+  z-index: 1;
+}
+.questionBox {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-whitesmoke-100);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-3xs);
+  min-height: 48px;
+}
+.questionsreplies {
+  width: 652px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-lg);
+  box-sizing: border-box;
+  gap: var(--gap-lg);
+}
+.collapsedfalse {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-gainsboro-200);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 652px;
+}
+.chatBox {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 649px;
+  text-align: left;
+  font-size: var(--font-size-23xl);
+  color: var(--color-whitesmoke-100);
+  font-family: var(--font-montserrat);
+}

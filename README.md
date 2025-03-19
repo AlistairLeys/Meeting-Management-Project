@@ -1,9 +1,25 @@
+<<<<<<< HEAD
 # Meeting Minutes Generator
+=======
+# Minutes Test
 
+>>>>>>> Incoming
+
+<<<<<<< HEAD
 A powerful AI-assisted application that transforms audio recordings of meetings into complete, structured meeting minutes with action points and summaries.
+=======
+Note: Please ensure you have installed <code><a href="https://nodejs.org/en/download/">nodejs</a></code>
 
+>>>>>>> Incoming
+
+<<<<<<< HEAD
 ## Features
+=======
+To preview and run the project on your device:
 
+>>>>>>> Incoming
+
+<<<<<<< HEAD
 - **Audio Processing**: Automatic speech recognition for transcription
 - **Speaker Diarization**: Identifies different speakers in recordings
 - **AI-Generated Summaries**: Extracts key discussion points
@@ -90,6 +106,7 @@ python run_dev.py
 ```
 
 This script will:
+
 - Start the Flask backend server on port 5000
 - Start the Vite development server for the UI on port 5173
 - Open your browser to the application automatically
@@ -169,11 +186,13 @@ To deploy the React UI to GitHub Pages, follow these steps:
 The system includes automated cleanup of temporary files to prevent disk space issues:
 
 1. **Scheduled Cleanup**: Runs every 4 hours (configurable via `CLEANUP_INTERVAL_HOURS`)
+
    - Removes completed jobs older than 24 hours (configurable via `COMPLETED_JOB_RETENTION_HOURS`)
    - Removes failed/interrupted jobs older than 30 minutes (configurable via `INTERRUPTED_JOB_RETENTION_MINUTES`)
    - Cleans up associated files (PDFs, audio files, etc.)
 
-2. **Immediate Cleanup**: 
+2. **Immediate Cleanup**:
+
    - Uploaded files are removed immediately after processing
    - Empty files in the uploads directory are cleaned after each processing job
 
@@ -188,15 +207,18 @@ All cleanup operations are logged for auditing and debugging purposes.
 ### Common Issues
 
 1. **Audio Processing Fails**:
+
    - Ensure FFmpeg is properly installed and in your PATH
    - Check that the audio file format is supported
    - For large files, ensure sufficient memory is available
 
 2. **Slow Processing**:
+
    - GPU acceleration is recommended for optimal performance
    - Consider chunking large audio files into smaller segments
 
 3. **API Key Issues**:
+
    - Verify your OpenAI and HuggingFace API keys are valid and have sufficient credits
    - Check your `.env` file has the correct values
 
@@ -211,3 +233,9 @@ All cleanup operations are logged for auditing and debugging purposes.
 ## Contributors
 
 [Your Contributor Information Here]
+=======
+1. Open project folder in <a href="https://code.visualstudio.com/download">Visual Studio Code</a>
+2. In the terminal, run `npm install`
+3. Run `npm start` to view project in browser
+
+>>>>>>> Incoming

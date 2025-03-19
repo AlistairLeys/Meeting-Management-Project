@@ -1,0 +1,76 @@
+.meetings {
+  align-self: stretch;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-21xl);
+  min-width: 642px;
+}
+.chatContainer {
+  height: 919px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.contentArea {
+  align-self: stretch;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-21xl);
+  max-width: 100%;
+}
+.minutesFrame {
+  width: 100%;
+  height: 1117px;
+  position: relative;
+  background-color: var(--color-whitesmoke-200);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 40px var(--padding-5xl) 0px;
+  box-sizing: border-box;
+  gap: var(--gap-21xl);
+  min-width: 1282px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+@media screen and (max-width: 1400px) {
+  .chatContainer {
+    flex: 1;
+  }
+
+  .contentArea {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 825px) {
+  .meetings {
+    gap: var(--gap-xl);
+    min-width: 100%;
+  }
+
+  .chatContainer {
+    min-width: 100%;
+  }
+
+  .contentArea {
+    gap: var(--gap-xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .minutesFrame {
+    gap: var(--gap-xl);
+  }
+}

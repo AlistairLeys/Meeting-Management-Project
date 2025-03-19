@@ -220,9 +220,11 @@
 }
 
 .transcriptText {
-  font-family: var(--font-montserrat);  /* Use the global variable instead */
+  font-family: monospace;
   white-space: pre-wrap;
   word-break: break-word;
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: auto; /* Allow height to adjust to content */
   overflow: visible; /* Ensure content is visible */

@@ -1,0 +1,41 @@
+.slogan {
+  margin: 0;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.logoIcon {
+  position: absolute;
+  height: 46.15%;
+  width: 15.87%;
+  top: 26.92%;
+  right: 0%;
+  bottom: 26.92%;
+  left: 84.13%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.appTitle {
+  width: 624px;
+  position: relative;
+  height: 78px;
+}
+.navBartestPage {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  background: linear-gradient(180deg, #2a7491, #5cb9cd);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-5xs) var(--padding-lg);
+  gap: var(--gap-0);
+  text-align: left;
+  font-size: var(--font-size-45xl);
+  color: var(--color-whitesmoke-100);
+  font-family: var(--font-montserrat);
+}

@@ -1,0 +1,20 @@
+.number {
+  position: relative;
+  font-weight: 600;
+}
+.backgroundNumbersdefault {
+  width: 33px;
+  border-radius: var(--br-26xl);
+  background-color: var(--color-gainsboro-100);
+  height: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-8xs) var(--padding-9xs);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-gray);
+  font-family: var(--font-montserrat);
+}

@@ -1,0 +1,24 @@
+.title {
+  position: relative;
+  font-size: var(--font-size-9xl);
+  font-weight: 600;
+  font-family: var(--font-montserrat);
+  color: var(--color-whitesmoke-100);
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.this4 {
+  cursor: pointer;
+  border: none;
+  padding: var(--padding-3xs);
+  background-color: var(--color-silver);
+  flex: 1;
+  box-shadow: 0px 4px 16.5px rgba(0, 0, 0, 0.25) inset;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

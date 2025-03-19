@@ -1,0 +1,168 @@
+.chatTitle {
+  margin: 0;
+  align-self: stretch;
+  width: 207px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 500;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+.chatTitle1 {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.collapseArrowIcon {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  align-self: stretch;
+  height: 100%;
+  width: 100%;
+}
+.collapseArrowIcon1 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  align-self: stretch;
+  height: 59px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonCollapse {
+  width: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.header {
+  align-self: stretch;
+  flex: 1;
+  border-radius: var(--br-2xs) var(--br-2xs) 0px 0px;
+  background: linear-gradient(180deg, #a2a2a2, var(--color-silver) 65%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0px 0px var(--padding-lg);
+  gap: var(--gap-0);
+}
+.symbolSearchSmall {
+  height: 34px;
+  width: 34px;
+  position: relative;
+}
+.search {
+  border: none;
+  outline: none;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-9xl);
+  background-color: transparent;
+  flex: 1;
+  position: relative;
+  color: var(--color-darkslategray-200);
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 272px;
+}
+.searchText {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-lg);
+}
+.searchBox {
+  align-self: stretch;
+  height: 54px;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-whitesmoke-100);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs);
+  box-sizing: border-box;
+}
+.transcriptBody {
+  border: none;
+  background-color: transparent;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-9xl);
+  outline: none;
+  flex: 1;
+  position: relative;
+  color: var(--color-darkslategray-100);
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 272px;
+}
+.questionText {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.replyBox {
+  align-self: stretch;
+  flex: 1;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-whitesmoke-100);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs);
+}
+.questionsreplies {
+  align-self: stretch;
+  height: 880px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-lg);
+  box-sizing: border-box;
+  gap: var(--gap-lg);
+}
+.transcriptFrame {
+  align-self: stretch;
+  height: 939px;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-gainsboro-200);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.transcript {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px 0px var(--padding-5xl);
+  text-align: left;
+  font-size: var(--font-size-23xl);
+  color: var(--color-whitesmoke-100);
+  font-family: var(--font-montserrat);
+}

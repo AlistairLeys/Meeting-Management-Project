@@ -1,0 +1,44 @@
+.title {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.titleWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.lockIcon {
+  width: 26px;
+  position: relative;
+  height: 34px;
+}
+.lockParent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gap-3xs);
+  font-size: var(--font-size-xl);
+  color: var(--color-gray);
+}
+.minutesContentBox {
+  align-self: stretch;
+  border-radius: var(--br-2xs);
+  background-color: var(--color-whitesmoke-100);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-3xs);
+  gap: var(--gap-2xs);
+  text-align: left;
+  font-size: var(--font-size-9xl);
+  color: var(--color-darkslategray-100);
+  font-family: var(--font-montserrat);
+}

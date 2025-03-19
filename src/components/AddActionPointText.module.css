@@ -1,0 +1,25 @@
+.addActionPoint {
+  flex: 1;
+  position: relative;
+}
+.actionPointText {
+  flex: 1;
+  border-radius: var(--br-2xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px var(--padding-5xs);
+}
+.addActionPointText {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-lg);
+  text-align: left;
+  font-size: var(--font-size-9xl);
+  color: var(--color-darkslategray-200);
+  font-family: var(--font-montserrat);
+}

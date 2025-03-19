@@ -1,0 +1,17 @@
+.vectorIcon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.symbolAdd {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  height: 26px;
+  width: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
