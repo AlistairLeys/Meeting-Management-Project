@@ -18,7 +18,9 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    }
+    },
+    "noImplicitAny": false,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "build"]
