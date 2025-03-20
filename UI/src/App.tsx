@@ -5,6 +5,7 @@ import {
   Navigate,
   useNavigationType,
   useLocation,
+  BrowserRouter,
 } from "react-router-dom";
 import MinutesFrame from "./pages/MinutesFrame";
 import MeetingsFrame from "./pages/MeetingsFrame";
@@ -13,7 +14,7 @@ import UploadTest from "./components/UploadTest";
 import { MeetingProvider } from './context/MeetingContext';
 import "./global.css";
 
-function App() {
+function AppRoutes() {
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
@@ -69,10 +70,6 @@ function App() {
     }
   }, [pathname]);
 
-  useEffect(() => {
-    document.title = "Meeting Minutes";
-  }, []);
-
   return (
     <div className="scale-container">
       <Routes>
@@ -82,6 +79,18 @@ function App() {
         <Route path="/meetings" element={<MeetingsFrame />} />
       </Routes>
     </div>
+  );
+}
+
+// Extract the basename from homepage in package.json
+function App() {
+  // Get repository name from homepage URL
+  const repoName = '/MinuteTaker';
+  
+  return (
+    <BrowserRouter basename={repoName}>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
